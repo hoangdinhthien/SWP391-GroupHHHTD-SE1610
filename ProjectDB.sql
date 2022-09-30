@@ -14,7 +14,8 @@ go
 CREATE TABLE [Role]
 (
 	[role_id] int Identity(1,1) PRIMARY KEY NOT NULL,
-	[role_name] NVARCHAR(11) NOT NULL
+	[role_name] NVARCHAR(100) NOT NULL
+
 )
 GO
 
@@ -26,20 +27,20 @@ GO
 -- 2
 CREATE TABLE [User]
 (
-	[email] NVARCHAR(30) PRIMARY KEY NOT NULL,
-	[name] NVARCHAR(30) NOT NULL,
+	[email] NVARCHAR(60) PRIMARY KEY NOT NULL,
+	[name] NVARCHAR(60) NOT NULL,
 	[role_id] int FOREIGN KEY REFERENCES dbo.[Role] DEFAULT(4) not null,
 	[phone] varchar(11),
-	[address] nvarchar(100)
+	[address] nvarchar(200)
 )
 GO
 
 CREATE TABLE [Notify]
 (
-	[email] NVARCHAR(30) FOREIGN KEY REFERENCES dbo.[User] not null,
+	[email] NVARCHAR(60) FOREIGN KEY REFERENCES dbo.[User] not null,
 	[title] NVARCHAR(100) not null,
 	[content] text,
-	[link] NVARCHAR(100)
+	[link] NVARCHAR(200)
 )
 GO
 
@@ -72,7 +73,7 @@ GO
 CREATE TABLE [Interviewer]
 (
 	[inter_id] CHAR(3) PRIMARY KEY NOT NULL,
-	[email] NVARCHAR(30) FOREIGN KEY REFERENCES dbo.[User] NOT NULL ,
+	[email] NVARCHAR(60) FOREIGN KEY REFERENCES dbo.[User] NOT NULL ,
 	[major_id] int FOREIGN KEY REFERENCES dbo.[Major] NOT NULL,
 	[isAvailable] bit DEFAULT (0) NOT NULL
 )
@@ -89,7 +90,7 @@ GO
 CREATE TABLE [HR_Staff]
 (
 	[hr_id] CHAR(3) PRIMARY KEY NOT NULL,
-	[email] NVARCHAR(30) FOREIGN KEY REFERENCES dbo.[User] NOT NULL
+	[email] NVARCHAR(60) FOREIGN KEY REFERENCES dbo.[User] NOT NULL
 )
 GO
 
@@ -103,8 +104,8 @@ GO
 
 CREATE TABLE [Level]
 (
-	[level_id] int IDENTITY(1,1)  PRIMARY KEY NOT NULL,
-	[level_name] NVARCHAR(30)  NOT NULL
+	[level_id]  int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[level_name] NVARCHAR(10)  NOT NULL
 )
 GO
 
@@ -117,7 +118,7 @@ VALUES
 CREATE TABLE [Jobs]
 (
 	[job_id] CHAR(4) PRIMARY KEY NOT NULL,
-	[job_name] NVARCHAR(20) NOT NULL,
+	[job_name] NVARCHAR(50) NOT NULL,
 	[major_id] int FOREIGN KEY REFERENCES dbo.[Major] NOT NULL,
 	[job_vacancy] int NOT NULL,
 	[job_description] text,
@@ -137,7 +138,7 @@ GO
 CREATE TABLE [Saved_jobs]
 (
 	[job_id] CHAR(4) FOREIGN KEY REFERENCES dbo.[Jobs] NOT NULL,
-	[email] NVARCHAR(30) FOREIGN KEY REFERENCES dbo.[User] NOT NULL,
+	[email] NVARCHAR(60) FOREIGN KEY REFERENCES dbo.[User] NOT NULL,
 	UNIQUE([job_id],[email])
 )
 GO
@@ -154,8 +155,8 @@ CREATE TABLE [Candidates]
 (
 	[can_id] CHAR(4) PRIMARY KEY NOT NULL,
 	[job_id] CHAR(4) FOREIGN KEY REFERENCES dbo.[Jobs] NOT NULL,
-	[email] NVARCHAR(30) FOREIGN KEY REFERENCES dbo.[User] NOT NULL,
-	[can_cv] NVARCHAR(20) NOT NULL,-- comment 
+	[email] NVARCHAR(60) FOREIGN KEY REFERENCES dbo.[User] NOT NULL,
+	[can_cv] NVARCHAR(50) NOT NULL,-- comment 
 	[isStatus] int DEFAULT (0) NOT NULL,
 	/*	Note: 
 		0 : HR hasn't accepted
@@ -180,7 +181,7 @@ GO
 CREATE TABLE [Skills]
 (
 	[skill_id] int Identity(1,1) PRIMARY KEY NOT NULL,
-	[skill_name] NVARCHAR(30) UNIQUE NOT NULL,
+	[skill_name] NVARCHAR(100) UNIQUE NOT NULL,
 	[skill_description] text
 )
 GO
@@ -316,12 +317,12 @@ GO
 
 CREATE TABLE [Interviewing]
 (
-	[id] DATE PRIMARY KEY NOT NULL,
+	[id] int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[inter_id] CHAR(3) FOREIGN KEY REFERENCES dbo.[Interviewer] NOT NULL,
 	[can_id] CHAR(4) FOREIGN KEY REFERENCES dbo.[Candidates] NOT NULL,
-	[date] date not null,
-	[inter_score] FLOAT ,
-	[location] NVARCHAR(50) NOT NULL,
+	[date] DATETIME not null,
+	[location] NVARCHAR(100) NOT NULL,
+	[inter_score] INT,
 	UNIQUE ([inter_id],[can_id])
 )
 GO
