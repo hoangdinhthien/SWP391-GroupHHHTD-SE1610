@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Thien
  */
-public class HomeController extends HttpServlet {
+public class FAQsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,19 +30,25 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("controller", "home");
+        request.setAttribute("controller", "faq");
         String op = request.getParameter("op");
         request.setAttribute("action", op);
         switch (op) {
-            case "index":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
             case "faq_index":
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
-//            
-            
+            case "create":
+                create(request, response);
+                break;
+            case "edit":
+                edit(request, response);
+                break;
+            case "delete":
+                delete(request, response);
+                break;
+
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -83,5 +89,17 @@ public class HomeController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    protected void create(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("create");
+    }
+
+    protected void edit(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    protected void delete(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

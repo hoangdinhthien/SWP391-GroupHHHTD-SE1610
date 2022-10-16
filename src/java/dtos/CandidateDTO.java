@@ -10,25 +10,25 @@ package dtos;
  * @author Thien's
  */
 public class CandidateDTO {
-    private String id;
-    private String jobId;
+    private String can_id;
+    private String job_id;
     private int majorId;
     private String email;
     private String name;
-    private String cv;
+    private String can_cv;
     private String phone;
     private int isStatus;
 
     public CandidateDTO() {
     }
 
-    public CandidateDTO(String id, String jobId, int majorId, String email, String name, String cv, String phone, int isStatus) {
-        this.id = id;
-        this.jobId = jobId;
+    public CandidateDTO(String can_id, String job_id, int majorId, String email, String name, String can_cv, String phone, int isStatus) {
+        this.can_id = can_id;
+        this.job_id = job_id;
         this.majorId = majorId;
         this.email = email;
         this.name = name;
-        this.cv = cv;
+        this.can_cv = can_cv;
         this.phone = phone;
         this.isStatus = isStatus;
     }
@@ -43,19 +43,19 @@ public class CandidateDTO {
 
 
     public String getId() {
-        return id;
+        return can_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String can_id) {
+        this.can_id = can_id;
     }
 
     public String getJobId() {
-        return jobId;
+        return job_id;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setJobId(String job_id) {
+        this.job_id = job_id;
     }
 
     public int getMajorId() {
@@ -74,12 +74,12 @@ public class CandidateDTO {
         this.email = email;
     }
 
-    public String getCv() {
-        return cv;
+    public String getCanCv() {
+        return can_cv;
     }
 
-    public void setCv(String cv) {
-        this.cv = cv;
+    public void setCanCv(String can_cv) {
+        this.can_cv = can_cv;
     }
 
     public int getIsStatus() {
