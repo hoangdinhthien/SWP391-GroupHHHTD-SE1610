@@ -59,7 +59,7 @@
         </script>
         <div class="container">
             <c:if test="${not empty info && role == 'HR Staff'}">
-                <a class="link" href="<c:url value="/job?op=add_job"/>">Add a new job</a>
+                <a class="link" style="float: right" href="<c:url value="/job?op=add_job"/>">Add a new job</a><br/>
             </c:if>
             <c:if test="${not empty message}">
                 <script>
@@ -143,7 +143,6 @@
                     var message = "${msgFailed}";
                     alert(message);
                 </script>
-
             </div>
         </c:if>
         <c:if test="${not empty list}">
@@ -153,7 +152,7 @@
                         <div class="row">
                             <div class="col-md-6" onclick="job_detail(${loop.count})">
                                 <div style="background-color: #59c5dc; border-radius: 10px; margin-bottom: 50px;padding-left: 20px;" >
-                                    <h4 style="text-align: left;color: black">
+                                    <h4 style="text-align: left;color: black;font-style: italic;">
                                         Job Name: ${job.job_name}
                                     </h4> <br/>
                                     <div style="text-align: left; width: 100%" >
@@ -209,12 +208,9 @@
                                     <div class="form-popup form-container" id="view_job_detail${loop.count}" title="lastDiv" style="background-color: white; border-radius: 10px; margin-bottom: 50px;padding-left: 20px">
                                         <div>
                                             <c:if test="${not empty info && role == 'HR Staff'}">
-                                                <c:if test="${job.job_vacancy==0}">
-                                                    <a class="link" style="float: right" href="<c:url value="/job?op=delete_job&job_id=${job.job_id}"/>">Delete job</a>
-                                                </c:if>
                                                 <a class="link" style="float: right; margin-right: 5px" href="<c:url value="/job?op=update_job&job_id=${job.job_id}"/>">Update job</a>
                                             </c:if>
-                                            <h2 style="text-align: center; color: black">
+                                            <h2 style="text-align: center; color: blue;font-style: italic;">
                                                 Job Name: ${job.job_name}
                                             </h2> <br/>
                                             <div style="text-align: left; width: 100%;">
@@ -239,7 +235,7 @@
                                                     Salary: ${job.salary}$ <br/>
                                                 </p>
                                             </div>
-                                            <p style="text-align: left;color: black;font-style: italic;">
+                                            <p style="text-align: left;color: grey;font-style: italic;">
                                                 Post Date: ${job.post_date} <br/>
                                             </p>
                                             <p style="text-align: right; margin-bottom: 0;">
@@ -262,11 +258,9 @@
                                     <div title="lastDiv" class="form-popup form-container" id="view_job_detail${loop.count}" style="background-color: white; border-radius: 10px; margin-bottom: 50px;padding-left: 20px;">
                                         <div>
                                             <c:if test="${not empty info && role == 'HR Staff'}">
-                                                <c:if test="${job.job_vacancy==0}">
-                                                    <a class="link" style="float: right" href="<c:url value="/job?op=delete_job&job_id=${job.job_id}"/>">Delete job</a>
-                                                </c:if>
+                                                <a class="link" style="float: right; margin-right: 5px" href="<c:url value="/job?op=update_job&job_id=${job.job_id}"/>">Update job</a>
                                             </c:if>
-                                            <h2 style="text-align: center; color: black">
+                                            <h2 style="text-align: center; color: black;font-style: italic;">
                                                 Job Name: ${job.job_name}
                                             </h2> <br/>
                                             <div style="text-align: left; width: 100%;">
@@ -314,8 +308,146 @@
                             </div>
                         </div>
                     </c:if>
+                    <c:if test="${not empty info && role == 'HR Staff'}">
+                        <c:if test="${job.job_vacancy==0 && not empty job.job_id}">
+                            <div class="row">
+                                <div class="col-md-6" onclick="job_detail(${loop.count})">
+                                    <div style="background-color: #EA7F67; border-radius: 10px; margin-bottom: 50px;padding-left: 20px;" >
+                                        <h4 style="text-align: left;color: black;font-style: italic;">
+                                            Job Name: ${job.job_name}
+                                        </h4> <br/>
+                                        <div style="text-align: left; width: 100%" >
+                                            <p style="display: inline-block; margin-right: 30px;">
+                                                Major Name: ${job.major_name} 
+                                            </p>
+                                            <p style="display: inline-block; margin-right: 30px">
+                                                Level: ${job.level_name} <br/>
+                                            </p>
+                                            <p style="display: inline-block; margin-right: 30px;">
+                                                Vacancy: ${job.job_vacancy} 
+                                            </p>
+                                        </div>
+                                        <p style="text-align: left;font-style: italic;">
+                                            Post Date: ${job.post_date} <br/>
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6"  style="position: relative">
+                                    <c:if test="${loop.count != list.size()}">
+                                        <div class="form-popup form-container" id="view_job_detail${loop.count}" title="lastDiv" style="background-color: white; border-radius: 10px; margin-bottom: 50px;padding-left: 20px">
+                                            <div>
+                                                <c:if test="${not empty info && role == 'HR Staff'}">
+                                                    <c:if test="${job.job_vacancy==0}">
+                                                        <a class="link" style="float: right" onclick="return confirm('Are you sure you want to delete this job?');" href="<c:url value="/job?op=delete_job&job_id=${job.job_id}"/>">Delete job</a>
+                                                    </c:if>
+                                                    <a class="link" style="float: right; margin-right: 5px" href="<c:url value="/job?op=update_job&job_id=${job.job_id}"/>">Update job</a>
+                                                </c:if>
+                                                <h2 style="text-align: center; color: blue;font-style: italic;">
+                                                    Job Name: ${job.job_name}
+                                                </h2> <br/>
+                                                <div style="text-align: left; width: 100%;">
+                                                    <p style="display: inline-block; margin-right: 30px; color: black">
+                                                        Major: ${job.major_name} 
+                                                    </p>    
+                                                    <p style="display: inline-block; margin-right: 30px; color: black">
+                                                        Level: ${job.level_name} <br/>
+                                                    </p>
+                                                </div>
+                                                <p style="text-align: left; color: black">
+                                                    Description: ${job.job_description} <br/>
+                                                </p>
+                                                <p style="text-align: left; color: black">
+                                                    Required Skill: ${job.job_skill} <br/>
+                                                </p>
+                                                <div style="text-align: left; width: 100%;">
+                                                    <p style="display: inline-block; margin-right: 30px; color: black">
+                                                        Vacancy: ${job.job_vacancy} 
+                                                    </p>
+                                                    <p style="display: inline-block; color: black">
+                                                        Salary: ${job.salary}$ <br/>
+                                                    </p>
+                                                </div>
+                                                <p style="text-align: left;color: gray;font-style: italic;">
+                                                    Post Date: ${job.post_date} <br/>
+                                                </p>
+                                                <p style="text-align: right; margin-bottom: 0;">
+                                                    <!--<a class="btn btn-success" style="color: #ffffff !important; border-color: #66D7A7;
+                                                       background: #66D7A7; border-style: solid; text-transform: uppercase; font-weight: 500;
+                                                       width: 100px" <c:choose>
+                                                        <c:when test="${not empty info}"> href="<c:url value="/apply?op=index&job_id=${job.job_id}"/>"</c:when>
+                                                        <c:otherwise>  href="<c:url value="https://accounts.google.com/o/oauth2/auth?scope=email  profile&redirect_uri=http://localhost:8084/recruitment-system/login?op=login&response_type=code&client_id=779040387699-c58vkqmlf6cmvtv3som469pl5k78lgar.apps.googleusercontent.com&approval_prompt=force"/>"</c:otherwise> 
+                                                    </c:choose>>Apply</a>
+                                                                                             <a class="btn btn-success" style=" float: left;color: #ffffff !important; border-color: #66D7A7;
+                                                                                                background: #66D7A7; border-style: solid; text-transform: uppercase; font-weight: 500;
+                                                                                                width: 100px" <c:choose>
+                                                        <c:when test="${not empty info}"> href="<c:url value="/job?op=save_job&job_id=${job.job_id}"/>"</c:when>
+                                                        <c:otherwise>  href="<c:url value="https://accounts.google.com/o/oauth2/auth?scope=email  profile&redirect_uri=http://localhost:8084/recruitment-system/login?op=login&response_type=code&client_id=779040387699-c58vkqmlf6cmvtv3som469pl5k78lgar.apps.googleusercontent.com&approval_prompt=force"/>"</c:otherwise> 
+                                                    </c:choose>>Save</a>-->
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${loop.count == list.size()}">
+                                        <div title="lastDiv" class="form-popup form-container" id="view_job_detail${loop.count}" style="background-color: white; border-radius: 10px; margin-bottom: 50px;padding-left: 20px;">
+                                            <div>
+                                                <c:if test="${not empty info && role == 'HR Staff'}">
+                                                    <c:if test="${job.job_vacancy==0}">
+                                                        <a class="link" style="float: right" onclick="return confirm('Are you sure you want to delete this job?');" href="<c:url value="/job?op=delete_job&job_id=${job.job_id}"/>">Delete job</a>
+                                                    </c:if>
+                                                    <a class="link" style="float: right; margin-right: 5px" href="<c:url value="/job?op=update_job&job_id=${job.job_id}"/>">Update job</a>
+                                                </c:if>
+                                                <h2 style="text-align: center; color: blue;font-style: italic;">
+                                                    Job Name: ${job.job_name}
+                                                </h2> <br/>
+                                                <div style="text-align: left; width: 100%;">
+                                                    <p style="display: inline-block; margin-right: 30px; color: black">
+                                                        Major: ${job.major_name} 
+                                                    </p>    
+                                                    <p style="display: inline-block; margin-right: 30px; color: black">
+                                                        Level: ${job.level_name} <br/>
+                                                    </p>
+                                                </div>
+                                                <p style="text-align: left; color: black">
+                                                    Description: ${job.job_description} <br/>
+                                                </p>
+                                                <p style="text-align: left; color: black">
+                                                    Require Skill: ${job.job_skill} <br/>
+                                                </p>
+                                                <div style="text-align: left; width: 100%;">
+                                                    <p style="display: inline-block; margin-right: 30px; color: black">
+                                                        Vacancy: ${job.job_vacancy} 
+                                                    </p>
+                                                    <p style="display: inline-block; color: black">
+                                                        Salary: ${job.salary}$ <br/>
+                                                    </p>
+                                                </div>
+                                                <p style="text-align: left;color: gray;font-style: italic;">
+                                                    Post Date: ${job.post_date} <br/>
+                                                </p>
+                                                <p style="text-align: right;">
+                                                    <a class="btn btn-success" style="color: #ffffff !important; border-color: #66D7A7;
+                                                       background: #66D7A7; border-style: solid; text-transform: uppercase; font-weight: 500;
+                                                       width: 100px" <c:choose>
+                                                           <c:when test="${not empty info}"> href="<c:url value="/apply?op=index&job_id=${job.job_id}"/>"</c:when>
+                                                           <c:otherwise>  href="<c:url value="https://accounts.google.com/o/oauth2/auth?scope=email  profile&redirect_uri=http://localhost:8084/recruitment-system/login?op=login&response_type=code&client_id=779040387699-c58vkqmlf6cmvtv3som469pl5k78lgar.apps.googleusercontent.com&approval_prompt=force"/>"</c:otherwise> 
+                                                       </c:choose>>Apply</a>
+                                                    <!--                                            <a class="btn btn-success" style=" float: left;color: #ffffff !important; border-color: #66D7A7;
+                                                                                                   background: #66D7A7; border-style: solid; text-transform: uppercase; font-weight: 500;
+                                                                                                   width: 100px" <c:choose>
+                                                        <c:when test="${not empty info}"> href="<c:url value="/job?op=save_job&job_id=${job.job_id}"/>"</c:when>
+                                                        <c:otherwise>  href="<c:url value="https://accounts.google.com/o/oauth2/auth?scope=email  profile&redirect_uri=http://localhost:8084/recruitment-system/login?op=login&response_type=code&client_id=779040387699-c58vkqmlf6cmvtv3som469pl5k78lgar.apps.googleusercontent.com&approval_prompt=force"/>"</c:otherwise> 
+                                                    </c:choose>>Save</a>-->
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:if>
                 </c:forEach>
-            </c:if>
-        </div>
+            </div>
+        </c:if>
     </body>
 </html>
